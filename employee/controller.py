@@ -14,6 +14,7 @@ def insertEmployeeInTable():
 # get method
 @app.route('/employee/<int:empNo>')      # getting records of employee
 def getEmployeeById(empNo):
+    print("getemployee")
     date=request.args.get('date')
     employes=mysql_client.getEmployeeById(empNo,date)
     return employes
@@ -51,4 +52,4 @@ def deleteEmployeesData(empNo):
     
 if __name__=="__main__":
     print("hello world!!")
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

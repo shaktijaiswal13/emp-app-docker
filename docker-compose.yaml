@@ -2,12 +2,14 @@ version: "3.9"
 
 services:
   app:
+    # image: karan2403/imagepython:app
     build: .
+    container_name: app
     ports:
       - "5000:5000"
     environment:
-      - MYSQL_HOST=db          # ✅ just the hostname of the MySQL container
-      - MYSQL_PORT=3306        # ✅ specify port separately
+      - MYSQL_HOST=db         
+      - MYSQL_PORT=3306        
       - MYSQL_USER=pymsql
       - MYSQL_PASSWORD=pymsql123
       - MYSQL_DB=employees
@@ -26,7 +28,8 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql                       
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
